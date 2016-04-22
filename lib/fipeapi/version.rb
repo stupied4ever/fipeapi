@@ -1,3 +1,3 @@
-module Fipeapi
+module FipeApi
   VERSION = "0.1.0"
 end

@@ -1,2 +1,3 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'fipeapi'
+
+require_relative '../lib/fipeapi'
