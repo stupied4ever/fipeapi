@@ -2,51 +2,36 @@ require 'spec_helper'
 
 describe FipeApi::Modelo do
   subject(:modelo) do
-    described_class.new(
-      tipo_do_veiculo,
-      id_marca,
-      id_veiculo,
-      { 'key' => 'id_do_preco' }
-    )
+    described_class.new(tipo_do_veiculo, id_marca)
   end
 
-  let(:tipo_do_veiculo) { FipeApi::TIPOS_DE_VEICULOS.sample }
   let(:id_marca) { 'id_marca' }
-  let(:id_veiculo) { 'id_veiculo' }
-
-  let(:json_do_modelo) { [{}] }
-  let(:objeto_do_modelo) { double(:objeto_do_modelo) }
-
-  let(:resposta_da_api) do
-    double(:resposta_da_api, parsed_response: json_do_modelo)
-  end
+  let(:tipo_do_veiculo) { FipeApi::TIPOS_DE_VEICULOS.sample }
 
   describe '#new' do
-    it 'seta o tipo do veiculo' do
+    it 'seta o tipo de veiculo' do
       expect(modelo.tipo_do_veiculo).to eq(tipo_do_veiculo)
     end
 
     it 'seta o id da marca' do
       expect(modelo.id_marca).to eq(id_marca)
     end
-
-    it 'seta o id do veiculo' do
-      expect(modelo.id_veiculo).to eq(id_veiculo)
-    end
   end
 
-  describe '#por_marca_e_id_do_veiculo' do
-    subject(:modelos) do
-      described_class.por_marca_e_id_do_veiculo(
-        tipo_do_veiculo,
-        id_marca,
-        id_veiculo
+  describe '.por_marca' do
+    subject(:modelos) { described_class.por_marca(tipo_do_veiculo, id_marca) }
+
+    let(:json_do_modelo) { [{}] }
+    let(:modelo) { double(:modelo) }
+    let(:resposta_da_api) do
+      double(
+        :resposta_da_api, parsed_response: { 'modelos' => json_do_modelo }
       )
     end
 
-    it 'busca modelos do veiculo' do
+    it 'busca tipo de modelos por marca' do
       expect(HTTParty).to receive(:get)
-        .with(url_de_modelos(tipo_do_veiculo, id_marca, id_veiculo))
+        .with(marca_modelos_urls(tipo_do_veiculo, id_marca))
         .and_return(resposta_da_api)
 
       modelos
@@ -57,17 +42,16 @@ describe FipeApi::Modelo do
         .and_return(resposta_da_api)
 
       expect(FipeApi::Modelo).to receive(:new)
-        .with(tipo_do_veiculo, id_marca, id_veiculo, json_do_modelo.first)
-        .and_return(objeto_do_modelo)
+        .with(tipo_do_veiculo, id_marca, json_do_modelo.first)
+        .and_return(modelo)
 
-      expect(modelos).to eq([objeto_do_modelo])
+      expect(modelos).to eq([modelo])
     end
   end
 
   private
 
-  def url_de_modelos(tipo_do_veiculo, id_marca, id_veiculo)
-    "#{FipeApi::API_URL}/#{tipo_do_veiculo}/veiculo/#{id_marca}/" \
-      "#{id_veiculo}.json"
+  def marca_modelos_urls(tipo_do_veiculo, id_marca)
+    "#{FipeApi::API_URL}/#{tipo_do_veiculo}/marcas/#{id_marca}/modelos"
   end
 end

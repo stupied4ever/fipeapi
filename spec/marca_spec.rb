@@ -18,7 +18,7 @@ describe FipeApi::Marca do
 
   describe '.todas' do
     let(:marca_json) do
-      { 'key' => 'audi-6', 'id' => 6, 'fipe_name' => 'Audi', 'name' => 'AUDI' }
+      { 'codigo' => 2, 'nome' => 'Agrale' }
     end
 
     let(:objeto_marca) { double(:objeto_marca) }
@@ -62,6 +62,6 @@ describe FipeApi::Marca do
   private
 
   def marca_urls(tipo_do_veiculo)
-    "#{FipeApi::API_URL}/#{tipo_do_veiculo}/marcas.json"
+    "#{FipeApi::API_URL}/#{tipo_do_veiculo}/marcas"
   end
 end

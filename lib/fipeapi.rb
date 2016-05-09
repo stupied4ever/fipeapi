@@ -1,13 +1,14 @@
 require 'fipeapi/version'
 require 'httparty'
+require 'active_support/inflector'
 require_relative 'fipeapi/objeto_com_construtor'
 require_relative 'fipeapi/marca'
-require_relative 'fipeapi/veiculo'
 require_relative 'fipeapi/modelo'
-require_relative 'fipeapi/preco'
+require_relative 'fipeapi/ano'
+require_relative 'fipeapi/valor'
 
 module FipeApi
-  API_URL = 'http://fipeapi.appspot.com/api/1'
+  API_URL = 'https://fipe-parallelum.rhcloud.com/api/v1'
   CARRO = 'carros'
   MOTO = 'motos'
   CAMINHAO = 'caminhoes'

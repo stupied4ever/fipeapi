@@ -2,43 +2,28 @@ module FipeApi
   class Modelo
     include ObjetoComConstrutor
 
-    attr_accessor :fipe_marca, :fipe_codigo, :name, :marca, :key, :veiculo,
-      :id, :id_veiculo, :tipo_do_veiculo, :id_marca
+    attr_accessor :id_marca, :tipo_do_veiculo, :nome, :codigo
 
-    def initialize(tipo_do_veiculo, id_marca, id_veiculo, opts = {})
-      self.tipo_do_veiculo = tipo_do_veiculo
-      self.id_marca = id_marca
-      self.id_veiculo = id_veiculo
-
-      super(opts)
-    end
-
-    def self.por_marca_e_id_do_veiculo(
-      tipo_do_veiculo,
-      id_marca,
-      codigo_veiculo
-    )
+    def self.por_marca(tipo_do_veiculo, id_marca)
       HTTParty
-        .get(endpoint(tipo_do_veiculo, id_marca, codigo_veiculo))
-        .parsed_response.map do |modelo|
-          Modelo.new(tipo_do_veiculo, id_marca, codigo_veiculo, modelo)
+        .get("#{API_URL}/#{tipo_do_veiculo}/marcas/#{id_marca}/modelos")
+        .parsed_response['modelos'].map do |modelo|
+          Modelo.new(tipo_do_veiculo, id_marca, modelo)
         end
     end
 
-    def preco
-      Preco.por_marca_codigo_do_veiculo_e_ano(
-        tipo_do_veiculo,
-        id_marca,
-        id_veiculo,
-        key
-      )
+    def initialize(tipo_do_veiculo, id_marca, opts = {})
+      self.tipo_do_veiculo = tipo_do_veiculo
+      self.id_marca = id_marca
+      super(opts)
     end
 
-    private
-
-    def self.endpoint(tipo_do_veiculo, id_marca, codigo_veiculo)
-      "#{FipeApi::API_URL}/#{tipo_do_veiculo}/veiculo/#{id_marca}/" \
-        "#{codigo_veiculo}.json"
+    def anos
+      Ano.por_marca_e_modelo(
+        tipo_do_veiculo,
+        id_marca,
+        codigo
+      )
     end
   end
 end
