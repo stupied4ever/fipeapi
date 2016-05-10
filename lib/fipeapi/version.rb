@@ -1,3 +1,3 @@
 module FipeApi
-  VERSION = '0.2.beta'
+  VERSION = '0.3.beta'
 end
