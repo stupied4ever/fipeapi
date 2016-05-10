@@ -25,7 +25,7 @@ module FipeApi
     end
 
     def valor
-      Valor.por_marca_modelo_e_id_fipe(
+      Valor.por_marca_modelo_e_ano(
         tipo_do_veiculo,
         id_marca,
         id_modelo,
