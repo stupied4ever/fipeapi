@@ -3,18 +3,18 @@ require 'spec_helper'
 describe FipeApi::Valor do
   describe '#por_marca_codigo_do_veiculo_e_ano' do
     subject(:valor) do
-      described_class.por_marca_modelo_e_id_fipe(
+      described_class.por_marca_modelo_e_ano(
         tipo_do_veiculo,
         id_marca,
         id_modelo,
-        id_fipe
+        ano
       )
     end
 
     let(:tipo_do_veiculo) { FipeApi::TIPOS_DE_VEICULOS.sample }
     let(:id_marca) { 'id_marca' }
     let(:id_modelo) { 'id_modelo' }
-    let(:id_fipe) { 'id_fipe' }
+    let(:ano) { 'ano' }
 
     let(:json_do_valor) do
       {
@@ -49,7 +49,7 @@ describe FipeApi::Valor do
             tipo_do_veiculo,
             id_marca,
             id_modelo,
-            id_fipe
+            ano
           )
         ).and_return(resposta_da_api)
 
@@ -70,8 +70,8 @@ describe FipeApi::Valor do
 
   private
 
-  def url_de_valor(tipo_do_veiculo, id_marca, id_modelo, id_fipe)
+  def url_de_valor(tipo_do_veiculo, id_marca, id_modelo, ano)
     "#{FipeApi::API_URL}/#{tipo_do_veiculo}/marcas/#{id_marca}/" \
-      "modelos/#{id_modelo}/anos/#{id_fipe}"
+      "modelos/#{id_modelo}/anos/#{ano}"
   end
 end
