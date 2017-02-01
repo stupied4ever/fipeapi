@@ -13,11 +13,13 @@ module FipeApi
     )
       Valor.new(
         parse_json_response(
-          HTTParty
-            .get(endpoint(tipo_do_veiculo, id_marca, id_modelo, ano))
-            .parsed_response
+          MyParty.get(
+            endpoint(tipo_do_veiculo, id_marca, id_modelo, ano)
+          ).parsed_response
         )
       )
+    rescue HTTParty::Error
+      nil
     end
 
     private

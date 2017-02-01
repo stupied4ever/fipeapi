@@ -5,9 +5,11 @@ module FipeApi
     attr_accessor :codigo, :nome, :tipo_do_veiculo
 
     def self.todas(tipo_do_veiculo=CARRO)
-      HTTParty
+      MyParty
         .get("#{API_URL}/#{tipo_do_veiculo}/marcas")
         .parsed_response.map { |marca| Marca.new(tipo_do_veiculo, marca) }
+    rescue HTTParty::Error
+      nil
     end
 
     def initialize(tipo_do_veiculo, opts = {})

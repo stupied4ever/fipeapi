@@ -39,7 +39,7 @@ describe FipeApi::Valor do
     let(:objeto_do_valor) { double(:objeto_do_valor) }
 
     let(:resposta_da_api) do
-      double(:resposta_da_api, parsed_response: json_do_valor)
+      double(:resposta_da_api, parsed_response: json_do_valor, code: 200)
     end
 
     it 'busca o valor na api' do

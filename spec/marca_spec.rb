@@ -22,7 +22,9 @@ describe FipeApi::Marca do
     end
 
     let(:objeto_marca) { double(:objeto_marca) }
-    let(:api_response) { double(:api_response, parsed_response: [marca_json]) }
+    let(:api_response) do
+      double(:api_response, parsed_response: [marca_json], code: 200)
+    end
 
     context 'quando não recebe o tipo do veiculo' do
       it 'usa o tipo carros' do

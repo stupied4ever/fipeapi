@@ -25,7 +25,9 @@ describe FipeApi::Modelo do
     let(:modelo) { double(:modelo) }
     let(:resposta_da_api) do
       double(
-        :resposta_da_api, parsed_response: { 'modelos' => json_do_modelo }
+        :resposta_da_api,
+        parsed_response: { 'modelos' => json_do_modelo },
+        code: 200
       )
     end
 

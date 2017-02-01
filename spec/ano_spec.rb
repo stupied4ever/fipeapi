@@ -18,7 +18,7 @@ describe FipeApi::Ano do
   let(:objeto_do_ano) { double(:objeto_do_ano) }
 
   let(:resposta_da_api) do
-    double(:resposta_da_api, parsed_response: json_do_ano)
+    double(:resposta_da_api, parsed_response: json_do_ano, code: 200)
   end
 
   describe '#new' do

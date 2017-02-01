@@ -17,11 +17,13 @@ module FipeApi
       id_marca,
       id_modelo
     )
-      HTTParty
+      MyParty
         .get(endpoint(tipo_do_veiculo, id_marca, id_modelo))
         .parsed_response.map do |ano|
           Ano.new(tipo_do_veiculo, id_marca, id_modelo, ano)
         end
+    rescue HTTParty::Error
+      nil
     end
 
     def valor
