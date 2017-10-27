@@ -10,7 +10,7 @@ require_relative 'fipeapi/ano'
 require_relative 'fipeapi/valor'
 
 module FipeApi
-  API_URL = 'https://fipe-parallelum.rhcloud.com/api/v1'
+  API_URL = 'https://fipe.parallelum.com.br/api/v1'
   CARRO = 'carros'
   MOTO = 'motos'
   CAMINHAO = 'caminhoes'
